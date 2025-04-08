@@ -124,61 +124,92 @@ util_menu () {
 #### disk management functions ####
 device_info () {
 	echo "device_info "	
+    echo "WIP"
 }
 part_info () {
 	echo "part_info "	
+    echo "WIP"
 }
 block_info () {
 	echo "block_info "	
+    echo "WIP"
 }
 mount_info () {
 	echo "mount_info"
+    echo "WIP"
 }
 
 #### file management functions ####
 present_working_dir () {
 	echo "present_working_dir"
+    echo -e "You are here: $PWD\n"
 }
 list_dir_contents () {
 	echo "list_dir_contents"
+    echo -e "Contents of current directory: \n"
+    ls -l
+    echo -e "\n"
 }
 create_file () {
 	echo "create_file"
+    read -p "Name your new file: " file
+    touch ${file}
 }
 change_file_perm () {
 	echo "change_file_perm"
+    echo "WIP"
 }
 remove_file () {
 	echo "remove_file"
+    read -p "Name file to be removed: " file 
+    rm ${file}
 }
 read_file () {
 	echo "read_file"
+    read -p "Name file to be displayed: " file
+    more ${file}
 }
 
 #### Network management functions ####
 ip_info () {
 	echo "ip_info"
+    ip a
 }
 ping_info () {
 	echo "ping_info"
+    echo -e "What IP address would you like to ping?\nxxx.xxx.xxx.xxx"
+    read IP
+    ping -i 1 -c 3 ${IP}
+    echo -e "\n" 
 }
 trace_route () {
 	echo "trace_route"
+    echo -e "What IP address would you like to trace?\nxxx.xxx.xxx.xxx"
+    read IP
+    traceroute ${IP}
+    echo -e "\n" 
 }
 nslookup_func () {
     echo "nslookup_func"
+    echo "WIP"
+    # research this
 }
 netwk_interfaces_info () {
     echo "netwk_interfaces_info"
+    echo "WIP"
+    # find a way to differentiate ip info and this function
 }
 netwk_routing_table () {
     echo "netwk_routing_table"
+    echo "WIP"
 }
 current_sys_users () {
     echo "current_sys_users"
+    w 
 }
 client_machine_info () {
     echo "client_machine_info"
+    # research how this would be executed
 }
 
 #### process management ####
@@ -187,9 +218,13 @@ display_processes () {
 }
 display_top () {
     echo "display_top"
+    top
 }
 kill_process () {
     echo "kill_process"
+    # what process would you like to kill
+    #
+    # kill ${pid} or ${name}
 }
 display_disk_use () {
     echo "display_disk_use"
@@ -199,32 +234,42 @@ display_free_disk () {
 }
 display_uptime () {
     echo "display_uptime"
+    uptime
 }
 
 #### user account management ####
+# not very hard to implement, just lots of requesting variables from user
 add_user () {
     echo "add_user"
+    echo "WIP"
 }
 delete_user () {
     echo "delete_user"
+    echo "WIP"
 }
 lock_user_pass () {
     echo "lock_user_pass"
+    echo "WIP"
 }
 get_user_info () {
     echo "get_user_info"
+    echo "WIP"
 }
 add_group () {
     echo "add_group"
+    echo "WIP"
 }
 delete_group () {
     echo "delete_group"
+    echo "WIP"
 }
 find_user () {
     echo "find_user"
+    echo "WIP"
 }
 find_group () {
     echo "find_group"
+    echo "WIP"
 }
 
 #### utilities ####
@@ -236,18 +281,23 @@ calendar () {
 }
 man_pages () {
     echo "man_pages"
+    read -p "What command do you want to learn more about?: " cmd
+    man ${cmd}
 }
 find_file_type () {
     echo "find_file_type"
+    # find typing of existing file, or more info about a given file type? research 
 }
 find_command_type () {
     echo "find_command_type"
+    # no clue
 }
 sort_file () {
     echo "sort_file"
 }
 search_file () {
     echo "search_file"
+    # searching for something within a file. likely cat | grep ${string}
 }
 
 #mainmenu
@@ -272,4 +322,5 @@ main_menu () {
 #functions end
 
 #### global , what runs first ####
+clear
 main_menu
