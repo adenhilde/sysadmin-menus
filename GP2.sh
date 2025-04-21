@@ -1,17 +1,19 @@
 #!/bin/bash
 #Josiah McNeeley
+#Aden Hilderbrand
 #CI201
+#21 April 2025
 
 # ----- Colors -----
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
+YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 CYAN='\033[0;36m'
-WHITE='\033[1;37m'
+WHITE='\033[0;37m'
+PURPLE='\033[0;35m'
 NC='\033[0m' # No Color
-
-
 
 # ~~~~~~~~~~~~~~~~~~~~
 # Function Definitions
@@ -31,19 +33,20 @@ disk_management_menu() {
             4) echo -e "${GREEN}Mounted Disks:${NC}"; df -h ;;
             5) main_menu; break ;;
             *) echo -e "${RED}Invalid option.${NC}" ;;    
-	esac
+        esac
     done
 }
 
 # File Management Menu
 file_management_menu() {
     clear
+    echo -e "${RED}----- File Management Menu -----${NC}"
     PS3="Choose an option (or 7 to return): "
     options=("Present Working Directory" "List Directory Contents" "Create a File" "Change File Permissions" "Remove a File" "Read a File" "Return to Main Menu")
     select opt in "${options[@]}"; do
         case $REPLY in
-            1) pwd ;;
-            2) ls -l ;;
+            1) echo -e "Current Directory:\n"; pwd ;;
+            2) echo -e "Directory Contents:\n"; ls -l ;;
             3) read -p "Enter file name: " fname; touch "$fname" ;;
             4) read -p "Enter file name: " fname; read -p "Enter permissions (e.g., 755): " perms; chmod "$perms" "$fname" ;;
             5) read -p "Enter file name to delete: " fname; rm -i "$fname" ;;
@@ -57,12 +60,13 @@ file_management_menu() {
 # Network Management Menu
 network_management_menu() {
     clear
+    echo -e "${GREEN}----- Network Management Menu -----${NC}"
     PS3="Choose an option (or 7 to return): "
     options=("ifconfig" "ping" "traceroute" "nslookup" "View network interfaces" "View routing table" "Return to Main Menu")
     select opt in "${options[@]}"; do
         case $REPLY in
-            1) ifconfig ;;
-            2) read -p "Enter host to ping: " host; ping -c 4 "$host" ;;
+            1) ifconfig || ip a ;;
+            2) read -p "Enter address to ping: " host; ping -c 4 "$host" ;;
             3) read -p "Enter host for traceroute: " host; traceroute "$host" ;;
             4) read -p "Enter domain for nslookup: " domain; nslookup "$domain" ;;
             5) ip link show ;;
@@ -76,6 +80,7 @@ network_management_menu() {
 # Placeholder for future menus
 process_management_menu() {
     clear
+    echo -e "${BLUE}----- Process Management Menu -----${NC}"
     PS3="Choose a process option (or 6 to return): "
     options=("Display running processes" "Search for a process" "Kill a process" "Show top processes" "Display memory usage" "Return to Main Menu")
     select opt in "${options[@]}"; do
@@ -92,7 +97,8 @@ process_management_menu() {
 }
 
 user_account_management_menu() {
-    <LeftMouse>clear
+    clear
+    echo -e "${CYAN}----- User Account Management Menu -----${NC}"
     PS3="Choose a user option (or 6 to return): "
     options=("Add a user" "Delete a user" "Change user password" "List all users" "Show current user" "Return to Main Menu")
     select opt in "${options[@]}"; do
@@ -110,6 +116,7 @@ user_account_management_menu() {
 
 utilities_menu() {
     clear
+    echo -e "${WHITE}----- Utilities Menu -----${NC}"
     PS3="Choose a utility (or 6 to return): "
     options=("System Uptime" "Current Date and Time" "Check Disk Usage" "Check Memory Usage" "Show System Information" "Return to Main Menu")
     select opt in "${options[@]}"; do
